@@ -1,0 +1,16 @@
+@media print {
+	body > * {
+		display: none;
+	}
+	body > section {
+		display: block;
+	}
+}
+@media screen {
+	body > section {
+		display: none;
+	}
+}
+@page {
+	margin: 2cm;
+}
