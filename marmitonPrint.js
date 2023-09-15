@@ -40,7 +40,7 @@
 	}
 	catch ( e )
 	{
-		msg.innerHTML += "picture " + e;
+		msg.appendChild ( document.createTextNode ( "picture " + e ) );
 	}
 
 	try
@@ -58,7 +58,7 @@
 	}
 	catch ( e )
 	{
-		msg.innerHTML += "title " + e;
+		msg.appendChild ( document.createTextNode ( "title " + e ) );
 	}
 
 	try
@@ -68,7 +68,7 @@
 	}
 	catch ( e )
 	{
-		msg.innerHTML += "ressources " + e;
+		msg.appendChild ( document.createTextNode ( "ressources " + e ) );
 	}
 
 	try
@@ -78,15 +78,28 @@
 	}
 	catch ( e )
 	{
-		msg.innerHTML += "actions " + e;
+		msg.appendChild ( document.createTextNode ( "actions " + e ) );
 	}
 
-	try{
+	try
+	{
 		let qr = document.createElement ( "img" );
 		div.appendChild ( qr );
 		qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+encodeURI ( window.location.origin+window.location.pathname );
-	}catch ( e ) {
-		msg.innerHTML += "qr " + e;
+	}
+	catch ( e )
+	{
+		msg.appendChild ( document.createTextNode ( "qr " + e ) );
+	}
+
+	let els = []
+	els.push ( ...section.getElementsByClassName ( "lazyload" ) );
+	els.push ( ...section.getElementsByClassName ( "lazyloaded" ) );
+	for ( el of els )
+	{
+		el.classList.remove ( "lazyload" );
+		el.classList.remove ( "lazyloaded" );
+		el.src = el.dataset.src;
 	}
 
 	section.appendChild ( msg );
