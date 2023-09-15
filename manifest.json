@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "marmitonPrint",
-	"version": "1.0",
+	"version": "1.1",
 
 	"description": "permet d'imprimer une recette Marmiton simplement avec les données essentielles",
 	"homepage_url": "https://github.com/ox223252/marmitonPrint.git",
