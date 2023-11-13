@@ -1,9 +1,22 @@
 @media print {
-	body > * {
-		display: none;
+	body > *, .card-ingredient-checkbox {
+		display: none !important;
+	}
+	#ox223252_ingredients > * {
+		width: 150px;
 	}
 	body > section {
-		display: block;
+		display: block !important;
+		font-size: 2em;
+	}
+	li {
+		margin-bottom: 5px;
+	}
+	a {
+		color:black;
+	}
+	h1 {
+		font-size: 2.2em;
 	}
 }
 @media screen {

@@ -23,8 +23,20 @@
 	div.style.alignItems = "center";
 	div.style.justifyContent = "space-between";
 
+	let divIngredients = document.createElement ( "div" );
+	section.appendChild ( divIngredients );
+	divIngredients.id = "ox223252_ingredients";
+	divIngredients.style.display = "flex";
+	divIngredients.style.flexWrap = "wrap";
+	divIngredients.style.alignItems = "center";
+	divIngredients.style.justifyContent = "space-between";
+
+	let actions = document.createElement ( "ol" );
+	section.appendChild ( actions );
+
 	let content = document.getElementById ( "content" );
 	let msg = document.createElement ( "p" );
+
 
 	if ( !content )
 	{
@@ -32,8 +44,8 @@
 	}
 
 	try
-	{
-		let mainImg = content.getElementsByClassName ( "SHRD__sc-dy77ha-0" )[ 0 ].cloneNode ( true );
+	{ // main picture
+		let mainImg = document.getElementById ( "recipe-media-viewer-thumbnail-0" ).cloneNode ( true );
 		mainImg.style.width = "auto";
 		mainImg.style.height = "150px";
 		div.appendChild ( mainImg );
@@ -44,16 +56,15 @@
 	}
 
 	try
-	{
-		let title = content.getElementsByClassName ( "RCP__sc-l87aur-2" )[ 0 ].cloneNode ( true );
+	{ // title
+		let title = content.getElementsByClassName ( "main-title" )[ 0 ].cloneNode ( true );
 		title.style.paddingLeft = "10px";
 		title.style.paddingRight = "10px";
 		title.style.marginBottom = "0";
 		title.style.display = "flex";
 		title.style.flexDirection = "column";
-		title.firstChild.removeChild ( title.firstChild.lastChild );
-		let nb = content.getElementsByClassName ( "SHRD__sc-w4kph7-5" )[ 0 ].cloneNode ( true );
-		title.appendChild ( nb );
+		let nb = content.getElementsByClassName ( "recipe-ingredients__qt-counter__value" )[ 0 ].value;
+		title.appendChild ( document.createTextNode ( nb + " personnes" ) );
 		div.appendChild ( title );
 	}
 	catch ( e )
@@ -62,9 +73,13 @@
 	}
 
 	try
-	{
-		let res = content.getElementsByClassName ( "RCP__sc-vgpd2s-0" )[ 0 ].cloneNode ( true );
-		section.appendChild ( res );
+	{ // ingredients
+		let res = content.getElementsByClassName ( "card-ingredient" );
+
+		for ( let r of res )
+		{
+			divIngredients.appendChild ( r.cloneNode ( true ) );
+		}
 	}
 	catch ( e )
 	{
@@ -72,9 +87,14 @@
 	}
 
 	try
-	{
-		let actions = content.getElementsByTagName ( "ul" )[ 0 ].cloneNode ( true );
-		section.appendChild ( actions );
+	{ // actions
+		for ( let a of content.getElementsByClassName ( "recipe-step-list__container" ) )
+		{
+			let li = document.createElement ( "li" );
+			actions.appendChild ( li );
+			a = a.getElementsByTagName ( "p" )[ 0 ];
+			li.appendChild ( document.createTextNode ( a.innerHTML ) );
+		}
 	}
 	catch ( e )
 	{
@@ -82,7 +102,7 @@
 	}
 
 	try
-	{
+	{ // Qr code
 		let qr = document.createElement ( "img" );
 		div.appendChild ( qr );
 		qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+encodeURI ( window.location.origin+window.location.pathname );
